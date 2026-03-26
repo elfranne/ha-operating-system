@@ -1,7 +1,7 @@
-config BR2_PACKAGE_HAILO_PCI
-	bool "Hailo PCIe Driver"
+config BR2_PACKAGE_HAILO8_PCI
+	bool "Hailo-8 PCIe Driver"
 	depends on BR2_LINUX_KERNEL
 	help
-	  Kernel driver for interacting with Hailo devices over PCIe.
+	  Kernel driver for interacting with Hailo-8 devices over PCIe.
 	  Used e.g. for Hailo-8(L) PCIe device found e.g. on Raspberry
 	  Pi AI Kit and Raspberry Pi AI HAT+.

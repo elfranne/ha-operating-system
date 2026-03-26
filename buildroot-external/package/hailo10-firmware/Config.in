@@ -1,0 +1,5 @@
+config BR2_PACKAGE_HAILO10_FIRMWARE
+	bool "Hailo-10 Firmware"
+	help
+	  Firmware for Hailo-10H PCIe device. Required for hailo1x_pci
+	  kernel module.

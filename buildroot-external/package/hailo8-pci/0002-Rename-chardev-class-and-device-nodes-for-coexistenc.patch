@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Home Assistant OS <homeassistant@home-assistant.io>
+Date: Thu, 26 Mar 2026 00:00:00 +0000
+Subject: [PATCH] Rename chardev class and device nodes for coexistence
+
+Rename the sysfs chardev class from "hailo_chardev" to "hailo8_chardev"
+and the device node prefix from "hailo" to "hailo8", creating /dev/hailo8N
+nodes and /sys/class/hailo8_chardev/.
+
+This allows hailo_pci (Hailo-8) and hailo1x_pci (Hailo-10/15) to be
+installed simultaneously on the same system without conflicting on the
+shared class name or device node namespace.
+---
+ linux/pcie/src/pcie.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/linux/pcie/src/pcie.c b/linux/pcie/src/pcie.c
+--- a/linux/pcie/src/pcie.c
++++ b/linux/pcie/src/pcie.c
+@@ -52,7 +52,7 @@ static bool force_boot_linux_from_eemc = false;
+ static bool support_soft_reset = true;
+
+-#define DEVICE_NODE_NAME "hailo"
++#define DEVICE_NODE_NAME "hailo8"
+ static int char_major = 0;
+ static struct class *g_chrdev_class = NULL;
+
+@@ -258,7 +258,7 @@ static int hailo_pcie_insert_board(struct hailo_pcie_board *pBoard)
+
+     if (!g_chrdev_class) {
+-        g_chrdev_class = class_create_compat("hailo_chardev");
++        g_chrdev_class = class_create_compat("hailo8_chardev");
+         if (IS_ERR(g_chrdev_class)) {
